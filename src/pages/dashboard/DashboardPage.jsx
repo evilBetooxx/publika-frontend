@@ -1,8 +1,8 @@
-import Sidebar from "../../components/dashboard/Sidebar";
+import Dashboard from "../../components/dashboard/Dashboard";
 
 function DashboardPage() {
   return (
-    <Sidebar />
+    <Dashboard/>
   );
 }
 
