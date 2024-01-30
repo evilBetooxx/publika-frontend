@@ -1,10 +1,13 @@
-function Card() {
+
+
+const Card = ({ post }) =>  {
+
   return (
-    <div className="relative flex flex-col justify-center overflow-hidden py-6 sm:py-12">
+    <div className="overflow-hidden py-12 w-auto ">
       <div className="mx-auto max-w-screen-xl px-4 w-full">
-        <h1 className="mb-4 font-bold text-3xl text-gray-900">Categorías</h1>
-        <h2 className="mb-4 font-bold text-xl text-gray-900">Título</h2>
-        <div className="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <h1 className="mb-4 font-bold text-3xl text-gray-900">{post.categoryID.name}</h1>
+        <h2 className="mb-4 font-bold text-xl text-gray-900">{post.title}</h2>
+        <div className="grid w-full gap-6">
           <div className="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
             <a
               href=""
@@ -30,14 +33,14 @@ function Card() {
               className="z-20 absolute h-full w-full top-0 left-0 "
             ></a>
             <div className="h-auto overflow-hidden">
-              <div className="h-44 overflow-hidden relative">
-                <img src="https://picsum.photos/400/400" alt="" />
+              <div className="h-auto overflow-hidden relative">
+                <img src={post.photo} alt="Foto del post" className="w-full h-full object-cover" />
               </div>
             </div>
             <div className="bg-white py-4 px-3">
-              <h3 className="text-xs mb-2 font-medium">Descripción</h3>
+              <h3 className="text-xs mb-2 font-medium">{post.content}</h3>
               <div className="flex justify-between items-center">
-                <p className="text-xs text-gray-400">Categoría -------</p>
+                <p className="text-xs text-gray-400">Usuario: {post.userID.username} -------</p>
                 <div className="relative z-40 flex items-center gap-2">
                   <a className="text-orange-600 hover:text-blue-500" href="">
                     <svg

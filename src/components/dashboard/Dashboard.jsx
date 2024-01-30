@@ -1,10 +1,10 @@
-import Card from "../card/Card";
+import LoadCard from "../card/LoadCard";
 import Layout from "../common/Layout";
 
 function Dashboard() {
   return (
     <Layout>
-      <Card/>
+      <LoadCard/>
     </Layout>
   );
 }

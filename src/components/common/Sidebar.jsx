@@ -1,8 +1,33 @@
 import Buttons from "../dashboard/Buttons";
 import { useAuth } from "../../context/AuthContext";
+import { usePost } from "../../context/PostContext";
+import { useEffect, useState } from "react";
 
 function Sidebar() {
+  const [valueCategory, setValueCategory] = useState({});
   const { user } = useAuth();
+  const { categories, getCategories } = usePost();
+  let selectedCategory = {};
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      console.log(categories[0]);
+      setValueCategory(categories[0]);
+      console.log(valueCategory);
+    }
+  }, [categories]);
+
+  const handleCategoryChange = (event) => {
+    selectedCategory = categories.find(
+      (category) => category.name === event.target.value
+    );
+    setValueCategory(selectedCategory);
+  };
+
   return (
     <main>
       <div className="bg-white h-screen md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out">
@@ -30,26 +55,38 @@ function Sidebar() {
               <p className="text-xs text-gray-500 text-center">Usuario</p>
             </div>
           </div>
-          <div className="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-teal-500">
-            <input
-              type="text"
-              className="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
-              placeholder="Search"
-            />
-            <button className="rounded-tr-md rounded-br-md px-2 py-3 hidden md:block">
-              <svg
-                className="w-4 h-4 fill-current"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+          <div>
+            <label className="block mb-2 text-sm text-gray-600">
+              Busca Publikaciones por Categoría
+            </label>
+            <div className="flex items-center justify-between">
+              <select
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={valueCategory.name}
+                onChange={handleCategoryChange}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </button>
+                {categories.map((category) => (
+                  <option key={category._id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+
+              <button className="rounded-tr-md rounded-br-md px-2 py-3 hidden md:block">
+                <svg
+                  className="w-4 h-4 fill-current"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </div>
           <div id="menu" className="flex flex-col space-y-2">
             <Buttons

@@ -2,6 +2,7 @@ import { createContext, useState, useContext } from "react";
 import {
   getPostsRequest,
   getPostByIdRequest,
+  getCategoriesRequest,
   createPostRequest,
   updatePostRequest,
   deletePostRequest,
@@ -20,6 +21,8 @@ export const usePost = () => {
 export function PostProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState([]);
+  const [categories, setCategories] = useState([]); 
+  const [notify, setNotify] = useState(null);
 
   const getPosts = async () => {
     try {
@@ -41,11 +44,21 @@ export function PostProvider({ children }) {
     }
   };
 
+  const getCategories = async () => {
+    try {
+      const res = await getCategoriesRequest();
+      console.log(res.data);
+      setCategories(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   const createPost = async (post) => {
     try {
       const res = await createPostRequest(post);
       console.log(res.data);
-      // Puedes manejar la respuesta según tus necesidades
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +68,6 @@ export function PostProvider({ children }) {
     try {
       const res = await updatePostRequest(id, post);
       console.log(res.data);
-      // Puedes manejar la respuesta según tus necesidades
     } catch (error) {
       console.log(error);
     }
@@ -65,10 +77,16 @@ export function PostProvider({ children }) {
     try {
       const res = await deletePostRequest(id);
       console.log(res.data);
-      // Puedes manejar la respuesta según tus necesidades
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const postNotify = (message) => {
+    setNotify(message);
+    setTimeout(() => {
+      setNotify(null);
+    }, 2000);
   };
 
   return (
@@ -76,8 +94,12 @@ export function PostProvider({ children }) {
       value={{
         posts,
         post,
+        notify,
+        categories,
+        postNotify,
         getPosts,
         getPostById,
+        getCategories,
         createPost,
         updatePost,
         deletePost,

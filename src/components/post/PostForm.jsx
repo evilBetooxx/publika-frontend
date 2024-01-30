@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthContext";
 import { Toaster, toast } from "sonner";
 import { usePost } from "../../context/PostContext";
 import { uploadPostImageRequest } from "../../api/post";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:5000/publika");
 
 function PostForm() {
+  
+  const { createPost, postNotify, categories ,getCategories } = usePost();
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -14,11 +21,30 @@ function PostForm() {
   } = useForm();
 
   const [imagePreview, setImagePreview] = useState(null);
+  const [valueCategory, setValueCategory] = useState({});
+  let selectedCategory = {};
 
-  const { user } = useAuth();
-  const { createPost } = usePost();
+  // const { user } = useAuth();
+  
 
-  const navigate = useNavigate();
+  useEffect( () => {
+    getCategories();
+  }, [])
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      console.log(categories[0]);
+      setValueCategory(categories[0]);
+      console.log(valueCategory);
+    }
+  }, [categories]);
+
+  const handleCategoryChange = (event) => {
+    selectedCategory = categories.find(
+      (category) => category.name === event.target.value
+    );
+    setValueCategory(selectedCategory);
+  };
 
   const handleFileInputChange = (event) => {
     const fileURL = event.target.files[0];
@@ -27,26 +53,24 @@ function PostForm() {
   };
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log(values.logo[0]);
     const formData = new FormData();
     formData.append("file", values.photo[0]);
     const logoURL = await uploadPostImageRequest(formData);
     console.log(logoURL.data);
     values.photo = logoURL.data;
-    values.userId = user.id;
+    values.categoryID = selectedCategory?._id || valueCategory._id;
     await createPost(values);
-    //socket.emit('newBarberShop', values.name);
-    //getNotify(values.name);
-
-    console.log("Barberia creada");
-    toast.success("Barberia creada correctamente");
+    socket.emit('newPost', values.title);
+    postNotify(values.title);
+    console.log("Publikación creada");
+    toast.success("Publikación creada correctamente");
     setTimeout(() => {
-      navigate("/my-barbers");
+      navigate("/dashboard");
     }, 2000);
   });
 
   return (
-    <body className="bg-gray-100">
+    <body className="bg-gray-100 items-center justify-content">
       <div className="min-h-screen flex items-center justify-center">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
           <h1 className="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">
@@ -68,10 +92,12 @@ function PostForm() {
                     message: "Maximo 30 caracteres",
                   },
                 })}
-                placeholder='Publika un título para tu anuncio"'
+                placeholder='Publika un título para tu anuncio'
               />
-              {errors.name && (
-                <span className="text-red-500 text-sm">{errors.title.message}</span>
+              {errors.title && (
+                <span className="text-red-500 text-sm">
+                  {errors.title.message}
+                </span>
               )}
             </div>
             <div className="mb-4">
@@ -92,14 +118,32 @@ function PostForm() {
                     message: "Maximo 80 caracteres",
                   },
                 })}
-                placeholder='Publika un contenido para tu anuncio'
+                placeholder="Publika un contenido para tu anuncio"
               />
-              {errors.name && (
-                <span className="text-red-500 text-sm">{errors.content.message}</span>
+              {errors.content && (
+                <span className="text-red-500 text-sm">
+                  {errors.content.message}
+                </span>
               )}
             </div>
-            <div className="mb-4">
+            <div>
               <label className="block mb-2 text-sm text-gray-600">
+                Categoría
+              </label>
+              <select
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={valueCategory.name}
+              onChange={handleCategoryChange}
+              >
+                {categories.map((category) => (
+                  <option key={category._id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2 text-sm text-gray-600 mt-4">
                 Sube tu foto:
               </label>
               <img
