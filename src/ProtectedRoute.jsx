@@ -6,7 +6,7 @@ function ProtectedRoute() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-black">
+      <div className="flex items-center justify-center h-screen bg-blue-600">
         <svg className="animate-spin h-12 w-12 text-white" viewBox="0 0 24 24">
           <circle
             className="opacity-25"
