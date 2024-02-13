@@ -4,23 +4,20 @@ import { getMessagesRequest } from "../../api/message";
 function MessageView() {
   const [messages, setMessages] = useState([]);
 
-  const showMessage = (message) => {
-    setMessages((prevMessages) => [...prevMessages, message]);
+  const showMessage = (data) => {
+    setMessages((prevMessages) => [...prevMessages, data]);
   };
 
   const getMessages = async () => {
     try {
       const response = await getMessagesRequest();
-      if (response.status === 502) {
-        console.log("502 Bad Gateway");
-        setTimeout(getMessages, 1000);
-      } else if (response.status !== 200) {
-        showMessage(response.statusText);
-        setTimeout(getMessages, 100);
-      } else {
-        const message = await response.text();
-        showMessage(message);
+      console.log(response);
+      if (response && response.status === 200) {
+        showMessage(response.data);
         getMessages();
+      } else {
+        showMessage("Error fetching messages");
+        setTimeout(getMessages, 1000);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -35,7 +32,9 @@ function MessageView() {
   return (
     <div>
       {messages.map((message, index) => (
-        <div key={index}>{message}</div>
+        <div className="text-black" key={index}>
+          {message.content}
+        </div>
       ))}
     </div>
   );

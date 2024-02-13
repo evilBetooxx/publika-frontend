@@ -1,28 +1,23 @@
+import { useForm } from "react-hook-form";
 import { sendMessageRequest } from "../../api/message";
 
 function MessageForm() {
-  const sendMessage = async (message) => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = handleSubmit(async (values) => {
     try {
-      await sendMessageRequest(message);
+      await sendMessageRequest(values);
     } catch (error) {
       console.error("Error enviando el mensaje:", error);
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const message = e.target.message.value;
-    if (message) {
-      sendMessage(message);
-      e.target.message.value = "";
-    }
-  };
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <input
         type="text"
-        name="message"
+        {...register("content", { required: true })}
+        placeholder="¡ Escribe un comentario !"
         className="rounded-3xl border-none bg-blue-400 bg-opacity-70 px-6 py-2 text-center text-inherit placeholder-slate-500 shadow-lg outline-none backdrop-blur-md"
       />
       <button
