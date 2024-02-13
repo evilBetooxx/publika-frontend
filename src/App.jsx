@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { AuthProvider } from "./context/AuthContext";
-import { PostProvider } from "./context/PostContext";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { PostProvider } from "./context/PostContext.jsx";
 
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
-import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from "./pages/auth/RegisterPage";
-import DashboardPage from "./pages/dashboard/DashboardPage";
-import PostPage from "./pages/posts/PostPage";
-import PostFormPage from "./pages/posts/PostFormPage";
-import UsersOnlinePage from "./pages/users/UsersOnlinePage";
-import ChatGrupalPage from "./pages/users/ChatGrupalPage";
+import LoginPage from "./pages/auth/LoginPage.jsx";
+import RegisterPage from "./pages/auth/RegisterPage.jsx";
+import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
+import PostPage from "./pages/posts/PostPage.jsx";
+import PostFormPage from "./pages/posts/PostFormPage.jsx";
+import UsersOnlinePage from "./pages/users/UsersOnlinePage.jsx";
+import ChatGrupalPage from "./pages/users/ChatGrupalPage.jsx";
 
 function App() {
   return (

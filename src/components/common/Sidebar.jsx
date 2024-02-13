@@ -1,6 +1,6 @@
-import Buttons from "../dashboard/Buttons";
-import { useAuth } from "../../context/AuthContext";
-import { usePost } from "../../context/PostContext";
+import Buttons from "../dashboard/Buttons.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { usePost } from "../../context/PostContext.jsx";
 import { useEffect, useState } from "react";
 
 function Sidebar() {

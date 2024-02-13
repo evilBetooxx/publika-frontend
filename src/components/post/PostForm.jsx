@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
-import { usePost } from "../../context/PostContext";
-import { uploadPostImageRequest } from "../../api/post";
+import { usePost } from "../../context/PostContext.jsx";
+import { uploadPostImageRequest } from "../../api/post.js";
 import io from "socket.io-client";
 
 var socket = io("http://localhost:5000/publika");

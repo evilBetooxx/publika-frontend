@@ -6,7 +6,7 @@ import {
   createPostRequest,
   updatePostRequest,
   deletePostRequest,
-} from "../api/post";
+} from "../api/post.js";
 
 const PostContext = createContext();
 
