@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { useEffect } from "react";
 import { usePost } from "../../context/PostContext";
 
-const socket = io("http://localhost:4000/publika");
+var socket = io("http://localhost:5000");
 
 function Dashboard() {
   const { notify } = usePost();

@@ -27,7 +27,6 @@ export function PostProvider({ children }) {
   const getPosts = async () => {
     try {
       const res = await getPostsRequest();
-      console.log(res.data);
       setPosts(res.data);
     } catch (error) {
       console.log(error);
@@ -37,7 +36,6 @@ export function PostProvider({ children }) {
   const getPostById = async (id) => {
     try {
       const res = await getPostByIdRequest(id);
-      console.log(res.data);
       setPost(res.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +45,6 @@ export function PostProvider({ children }) {
   const getCategories = async () => {
     try {
       const res = await getCategoriesRequest();
-      console.log(res.data);
       setCategories(res.data);
     } catch (error) {
       console.log(error);
@@ -58,7 +55,6 @@ export function PostProvider({ children }) {
   const createPost = async (post) => {
     try {
       const res = await createPostRequest(post);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +63,6 @@ export function PostProvider({ children }) {
   const updatePost = async (id, post) => {
     try {
       const res = await updatePostRequest(id, post);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +71,6 @@ export function PostProvider({ children }) {
   const deletePost = async (id) => {
     try {
       const res = await deletePostRequest(id);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }

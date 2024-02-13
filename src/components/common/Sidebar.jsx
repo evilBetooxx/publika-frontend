@@ -2,6 +2,7 @@ import Buttons from "../dashboard/Buttons";
 import { useAuth } from "../../context/AuthContext";
 import { usePost } from "../../context/PostContext";
 import { useEffect, useState } from "react";
+import { logoutRequest } from "../../api/auth";
 
 function Sidebar() {
   const [valueCategory, setValueCategory] = useState({});
@@ -15,9 +16,7 @@ function Sidebar() {
 
   useEffect(() => {
     if (categories.length > 0) {
-      console.log(categories[0]);
       setValueCategory(categories[0]);
-      console.log(valueCategory);
     }
   }, [categories]);
 
@@ -27,6 +26,11 @@ function Sidebar() {
     );
     setValueCategory(selectedCategory);
   };
+
+  const handleLogout = async () => {
+    await logoutRequest();
+    window.location.reload()
+  }
 
   return (
     <main>
@@ -108,6 +112,16 @@ function Sidebar() {
               path="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
               text="Usuarios"
             />
+
+            <button
+              className="flex text-sm font-medium text-gray-700 py-2 px-2 hover:bg-red-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+              onClick={handleLogout}
+            >
+              <svg className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                <path d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"></path>
+              </svg>
+              Cerrar Sesión
+            </button>
           </div>
         </div>
       </div>
