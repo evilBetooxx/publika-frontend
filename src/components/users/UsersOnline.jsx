@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getUsersOnlineRequest } from "../../api/users";
 import UserCard from "../card/UserCard";
 
-
 function UsersOnline() {
   const [usersOnline, setUsersOnline] = useState([]);
 
@@ -15,7 +14,7 @@ function UsersOnline() {
     fetchUsersOnline();
     const intervalId = setInterval(fetchUsersOnline, 5000);
     return () => clearInterval(intervalId);
-  }, [])
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -27,9 +26,9 @@ function UsersOnline() {
             </h3>
             <div className="inline-flex items-center space-x-2"></div>
           </div>
-            {usersOnline.map((user) => (
-              <UserCard key={user._id} user={user} />
-            ))}
+          {usersOnline.map((user) => (
+            <UserCard key={user._id} user={user} />
+          ))}
         </div>
       </div>
     </div>

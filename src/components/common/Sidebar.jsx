@@ -105,7 +105,7 @@ function Sidebar() {
             <Buttons
               href="/chat"
               path="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"
-              text="Mensajes"
+              text="Comunidad"
             />
             <Buttons
               href="/users"
