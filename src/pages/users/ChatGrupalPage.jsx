@@ -1,5 +1,5 @@
-import Layout from "../../components/common/Layout";
-import ChatGrupal from "../../components/users/ChatGrupal";
+import Layout from "../../components/common/Layout.jsx";
+import ChatGrupal from "../../components/users/ChatGrupal.jsx";
 
 function ChatGrupalPage() {
   return (

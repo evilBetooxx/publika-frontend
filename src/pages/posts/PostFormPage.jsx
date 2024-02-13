@@ -1,5 +1,5 @@
-  import Layout from "../../components/common/Layout"
-  import PostForm from "../../components/post/PostForm"
+  import Layout from "../../components/common/Layout.jsx"
+  import PostForm from "../../components/post/PostForm.jsx"
 
   function PostFormPage() {
     return (

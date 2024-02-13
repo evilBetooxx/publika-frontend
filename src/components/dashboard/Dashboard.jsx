@@ -1,9 +1,9 @@
-import LoadCard from "../card/LoadCard";
-import Layout from "../common/Layout";
+import LoadCard from "../card/LoadCard.jsx";
+import Layout from "../common/Layout.jsx";
 import { Toaster, toast } from "sonner";
 import { io } from "socket.io-client";
 import { useEffect } from "react";
-import { usePost } from "../../context/PostContext";
+import { usePost } from "../../context/PostContext.jsx";
 
 var socket = io("http://localhost:5000");
 

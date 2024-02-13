@@ -1,4 +1,4 @@
-import { usePost } from "../../context/PostContext"
+import { usePost } from "../../context/PostContext.jsx"
 import Card from "./Card"
 import { useEffect } from "react"
 

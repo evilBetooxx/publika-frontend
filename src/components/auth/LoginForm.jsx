@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
