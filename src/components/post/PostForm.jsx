@@ -6,7 +6,7 @@ import { usePost } from "../../context/PostContext";
 import { uploadPostImageRequest } from "../../api/post";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5000/publika");
+var socket = io("http://localhost:5000/publika");
 
 function PostForm() {
   
