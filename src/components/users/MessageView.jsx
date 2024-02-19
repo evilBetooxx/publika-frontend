@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { getMessagesRequest } from "../../api/message";
+import { getUserByIdRequest } from "../../api/users";
 
 function MessageView() {
   const [messages, setMessages] = useState([]);
 
-  const showMessage = (data) => {
+  const showMessage = async (data) => {
+    console.log(data);
+    //const user = await getUserByIdRequest(data.userID);
+    //console.log(user);
+    //data.user = user.data;
     setMessages((prevMessages) => [...prevMessages, data]);
   };
 
@@ -30,10 +35,12 @@ function MessageView() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       {messages.map((message, index) => (
-        <div className="text-black" key={index}>
+        <div className="text-black items-center justify-center py-2 px-2 bg-cyan-500 rounded-md" key={index}>
           {message.content}
+          <br />
+          
         </div>
       ))}
     </div>
